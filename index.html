@@ -3,303 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPAK Advanced HRBP | Light Mode</title>
+    <title>IPAK Premium HRBP | Light Glass</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Plus Jakarta Sans for that ultra-premium Apple-like typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --bg-app: #F4F7FE;
-            --bg-card: #FFFFFF;
-            --text-main: #2B3674;
-            --text-muted: #A3AED0;
-            --primary: #4318FF;
-            --primary-hover: #3311DB;
-            --success: #05CD99;
-            --warning: #FFCE20;
-            --danger: #EE5D50;
-            --border-radius: 20px;
-            --shadow-soft: 0px 18px 40px rgba(112, 144, 176, 0.12);
-            --border-light: 1px solid #E9EDF7;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --accent-blue: #3b82f6;
+            --accent-pink: #ec4899;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        body { background-color: var(--bg-app); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        /* Animated Mesh Gradient Background */
+        body {
+            height: 100vh;
+            background-color: #e0eafc;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7deg,0) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30deg,0) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30deg,0) 0, transparent 50%);
+            overflow: hidden;
+            display: flex;
+            position: relative;
+        }
 
-        /* --- Sidebar --- */
-        .sidebar { width: 280px; background: var(--bg-card); padding: 32px 24px; border-right: var(--border-light); display: flex; flex-direction: column; z-index: 10; }
-        .logo { font-size: 26px; font-weight: 700; color: var(--text-main); margin-bottom: 50px; text-align: center; }
-        .logo span { color: var(--primary); }
-        .nav-item { padding: 14px 20px; margin-bottom: 8px; border-radius: 12px; color: var(--text-muted); font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 14px; }
-        .nav-item i { font-size: 18px; }
-        .nav-item:hover { background: #F4F7FE; color: var(--primary); }
-        .nav-item.active { background: var(--primary); color: white; box-shadow: 0px 10px 20px rgba(67, 24, 255, 0.2); }
+        /* Floating Background Orbs for the Light Glass Effect */
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; animation: float 10s infinite ease-in-out alternate; }
+        .orb-1 { width: 500px; height: 500px; background: #c2e9fb; top: -10%; left: -10%; }
+        .orb-2 { width: 400px; height: 400px; background: #fbc2eb; bottom: -10%; right: -5%; animation-delay: -5s; }
+        .orb-3 { width: 300px; height: 300px; background: #e0c3fc; top: 40%; left: 40%; animation-duration: 15s; }
 
-        /* --- Main Content --- */
-        .main-content { flex: 1; padding: 32px 40px; overflow-y: auto; }
-        .main-content::-webkit-scrollbar { width: 6px; }
-        .main-content::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* Glassmorphism Reusable Class */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 24px;
+        }
+
+        /* --- Layout --- */
+        .app-container { display: flex; width: 100%; height: 100vh; padding: 20px; gap: 20px; z-index: 10; }
+
+        /* Sidebar */
+        .sidebar { width: 260px; padding: 30px 20px; display: flex; flex-direction: column; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--text-dark); margin-bottom: 50px; text-align: center; letter-spacing: -0.5px; }
+        .logo span { background: linear-gradient(45deg, var(--accent-blue), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-item { padding: 14px 20px; margin-bottom: 10px; border-radius: 16px; color: var(--text-muted); font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 15px; }
+        .nav-item:hover { background: rgba(255, 255, 255, 0.5); color: var(--text-dark); }
+        .nav-item.active { background: rgba(255, 255, 255, 0.8); color: var(--accent-blue); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+
+        /* Main Content */
+        .main-content { flex: 1; padding: 30px 40px; overflow-y: auto; display: flex; flex-direction: column; gap: 30px; }
+        .main-content::-webkit-scrollbar { display: none; } /* Hide scrollbar for ultra-clean look */
 
         /* Header */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
-        .header h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
-        .header-actions { display: flex; align-items: center; gap: 20px; }
-        .btn-primary { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; box-shadow: 0px 10px 20px rgba(67, 24, 255, 0.15); }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 32px; font-weight: 800; color: var(--text-dark); letter-spacing: -1px; }
         
-        .profile-chip { background: var(--bg-card); padding: 8px 16px; border-radius: 30px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-soft); cursor: pointer; font-weight: 600; }
-        .profile-chip img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .profile-chip { padding: 8px 16px; border-radius: 30px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.3s; }
+        .profile-chip:hover { background: rgba(255,255,255,0.8); }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--accent-blue); }
 
-        /* --- KPI Cards --- */
-        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 32px; }
-        .kpi-card { background: var(--bg-card); padding: 24px; border-radius: var(--border-radius); box-shadow: var(--shadow-soft); display: flex; align-items: center; gap: 20px; transition: 0.3s; }
-        .kpi-card:hover { transform: translateY(-4px); }
-        .kpi-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        .bg-light-blue { background: #F4F7FE; color: var(--primary); }
-        .bg-light-green { background: rgba(5, 205, 153, 0.1); color: var(--success); }
-        .bg-light-orange { background: rgba(255, 206, 32, 0.1); color: var(--warning); }
-        .bg-light-red { background: rgba(238, 93, 80, 0.1); color: var(--danger); }
+        /* KPI Grid */
+        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .kpi-card { padding: 25px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .kpi-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.6); }
         
-        .kpi-info h3 { font-size: 14px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
-        .kpi-info h2 { font-size: 28px; font-weight: 700; color: var(--text-main); }
-        .trend { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 4px; }
-        .trend.up { color: var(--success); }
-        .trend.down { color: var(--danger); }
+        /* Subtle Color Accents inside KPI cards */
+        .kpi-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; border-radius: 50%; opacity: 0.15; filter: blur(20px); }
+        .c-pending::before { background: #f59e0b; }
+        .c-ongoing::before { background: #3b82f6; }
+        .c-ttf::before { background: #10b981; }
+        .c-turnover::before { background: #ef4444; }
 
-        /* --- Layout Grid (Chart + Table) --- */
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .card-panel { background: var(--bg-card); padding: 28px; border-radius: var(--border-radius); box-shadow: var(--shadow-soft); }
-        .card-panel h2 { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--text-main); }
+        .kpi-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .kpi-value { font-size: 36px; font-weight: 800; color: var(--text-dark); }
 
-        /* Table */
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 16px 12px; color: var(--text-muted); font-size: 13px; font-weight: 600; border-bottom: var(--border-light); }
-        td { padding: 16px 12px; font-size: 14px; font-weight: 600; border-bottom: var(--border-light); color: var(--text-main); }
-        tr:last-child td { border-bottom: none; }
-        
-        .status { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; }
-        .status.ongoing { background: #E6FAEE; color: var(--success); }
-        .status.pending { background: #FFF7D8; color: #D4A700; }
-        
-        .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; margin-right: 10px; transition: 0.2s; }
-        .action-btn:hover { color: var(--primary); }
+        /* Charts & Table Area */
+        .data-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
+        .section-card { padding: 30px; }
+        .section-card h2 { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 25px; }
 
-        /* --- Modal (Popup Form) --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 100; }
-        .modal { background: var(--bg-card); width: 450px; padding: 32px; border-radius: var(--border-radius); box-shadow: 0px 20px 50px rgba(0,0,0,0.2); animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .modal-header h2 { font-size: 22px; }
-        .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
-        
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
-        .form-group input, .form-group select { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #E9EDF7; font-size: 14px; outline: none; transition: 0.3s; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.1); }
+        /* Glass Table */
+        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+        th { text-align: left; padding: 0 15px 10px; color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        td { padding: 15px; background: rgba(255, 255, 255, 0.3); font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        td:first-child { border-radius: 12px 0 0 12px; }
+        td:last-child { border-radius: 0 12px 12px 0; }
+        tr { transition: 0.2s; }
+        tr:hover td { background: rgba(255, 255, 255, 0.6); }
+
+        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .s-ongoing { background: rgba(59, 130, 246, 0.15); color: #2563eb; }
+        .s-pending { background: rgba(245, 158, 11, 0.15); color: #d97706; }
+
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="logo">IPAK<span>.HRBP</span></div>
-        <div class="nav-item active"><i class="fas fa-grid-2"></i> Dashboard</div>
-        <div class="nav-item"><i class="fas fa-briefcase"></i> Requisitions</div>
-        <div class="nav-item"><i class="fas fa-chart-pie"></i> Analytics</div>
-        <div class="nav-item"><i class="fas fa-users"></i> Employees</div>
-        <div class="nav-item" style="margin-top: auto;"><i class="fas fa-cog"></i> Settings</div>
-    </aside>
+    <!-- Background Animated Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-    <main class="main-content">
-        <header class="header">
-            <div>
-                <p style="color: var(--text-muted); font-size: 14px; font-weight: 500;">Good Morning, Anser</p>
-                <h1>Dashboard Overview</h1>
-            </div>
-            <div class="header-actions">
-                <button class="btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> New Position</button>
-                <div class="profile-chip">
-                    <img src="https://ui-avatars.com/api/?name=Anser+Ali&background=4318FF&color=fff" alt="Profile">
-                    <span>Anser Ali</span>
-                </div>
-            </div>
-        </header>
+    <div class="app-container">
+        
+        <!-- Sidebar -->
+        <aside class="glass-panel sidebar">
+            <div class="logo">IPAK<span>.HRBP</span></div>
+            <div class="nav-item active"><i class="fas fa-layer-group"></i> Overview</div>
+            <div class="nav-item"><i class="fas fa-users-viewfinder"></i> Requisitions</div>
+            <div class="nav-item"><i class="fas fa-chart-simple"></i> Analytics</div>
+            <div class="nav-item"><i class="fas fa-arrow-right-arrow-left"></i> Turnover</div>
+        </aside>
 
-        <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon bg-light-orange"><i class="fas fa-hourglass-half"></i></div>
-                <div class="kpi-info">
-                    <h3>Pending Roles</h3>
-                    <h2>12</h2>
-                    <div class="trend down"><i class="fas fa-arrow-down"></i> -2 from last week</div>
+        <!-- Main Workspace -->
+        <main class="main-content">
+            
+            <header class="header">
+                <div>
+                    <h1 style="font-size: 20px; color: var(--text-muted); font-weight: 600;">Good Morning, Anser 👋</h1>
+                    <h1>Dashboard</h1>
                 </div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon bg-light-blue"><i class="fas fa-sync fa-spin-pulse"></i></div>
-                <div class="kpi-info">
-                    <h3>Ongoing Hiring</h3>
-                    <h2>34</h2>
-                    <div class="trend up"><i class="fas fa-arrow-up"></i> +5 vs last month</div>
+                <div class="glass-panel profile-chip">
+                    <div class="avatar">A</div>
+                    <span style="font-weight: 700; font-size: 14px; color: var(--text-dark);">Anser Ali</span>
                 </div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon bg-light-green"><i class="fas fa-clock"></i></div>
-                <div class="kpi-info">
-                    <h3>Avg Time to Fill</h3>
-                    <h2>28d</h2>
-                    <div class="trend up"><i class="fas fa-check-circle"></i> On Target</div>
-                </div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon bg-light-red"><i class="fas fa-user-minus"></i></div>
-                <div class="kpi-info">
-                    <h3>Turnover Rate</h3>
-                    <h2>4.5%</h2>
-                    <div class="trend down"><i class="fas fa-arrow-down"></i> -0.5% vs YTD</div>
-                </div>
-            </div>
-        </div>
+            </header>
 
-        <div class="content-grid">
-            <div class="card-panel">
-                <h2>Hiring vs Turnover Analytics</h2>
-                <canvas id="mixedChart" height="220"></canvas>
+            <!-- KPIs -->
+            <div class="kpi-grid">
+                <div class="glass-panel kpi-card c-pending">
+                    <div class="kpi-title">Pending</div>
+                    <div class="kpi-value">12</div>
+                </div>
+                <div class="glass-panel kpi-card c-ongoing">
+                    <div class="kpi-title">Ongoing</div>
+                    <div class="kpi-value">28</div>
+                </div>
+                <div class="glass-panel kpi-card c-ttf">
+                    <div class="kpi-title">Time to Fill</div>
+                    <div class="kpi-value">32<span style="font-size: 18px; color: var(--text-muted);">d</span></div>
+                </div>
+                <div class="glass-panel kpi-card c-turnover">
+                    <div class="kpi-title">Turnover</div>
+                    <div class="kpi-value">4.2<span style="font-size: 18px; color: var(--text-muted);">%</span></div>
+                </div>
             </div>
 
-            <div class="card-panel">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h2 style="margin: 0;">Active Pipeline</h2>
-                    <a href="#" style="color: var(--primary); font-size: 14px; font-weight: 600; text-decoration: none;">View All</a>
+            <!-- Analytics & Table -->
+            <div class="data-grid">
+                
+                <!-- Chart -->
+                <div class="glass-panel section-card">
+                    <h2>Turnover Trend (YTD)</h2>
+                    <canvas id="glassLineChart" height="200"></canvas>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>POSITION</th>
-                            <th>DEPARTMENT</th>
-                            <th>STATUS</th>
-                            <th>ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-data">
+
+                <!-- Table -->
+                <div class="glass-panel section-card">
+                    <h2>Active Pipeline</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-data">
+                            <!-- JS Output -->
                         </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
+                    </table>
+                </div>
 
-    <div class="modal-overlay" id="addModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Add New Position</h2>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
-            <form id="addForm" onsubmit="submitForm(event)">
-                <div class="form-group">
-                    <label>Position Title</label>
-                    <input type="text" id="posTitle" placeholder="e.g. Senior Analyst" required>
-                </div>
-                <div class="form-group">
-                    <label>Department</label>
-                    <select id="posDept">
-                        <option>Planning</option>
-                        <option>Engineering</option>
-                        <option>HR</option>
-                        <option>Finance</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">Save Position</button>
-            </form>
-        </div>
+        </main>
     </div>
 
     <script>
-        // 1. Advanced Mixed Chart (Bar + Line)
-        const ctx = document.getElementById('mixedChart').getContext('2d');
+        // Set Chart defaults to match typography
+        Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+        Chart.defaults.color = '#64748b';
+
+        // Initialize Smooth Glass Chart
+        const ctx = document.getElementById('glassLineChart').getContext('2d');
+        
+        // Beautiful transparent gradient for the line chart fill
+        let gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(236, 72, 153, 0.4)'); // Pinkish top
+        gradient.addColorStop(1, 'rgba(236, 72, 153, 0)');   // Fades out
+
         new Chart(ctx, {
-            type: 'bar', // Base type
+            type: 'line',
             data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [
-                    {
-                        type: 'line',
-                        label: 'Turnover (%)',
-                        data: [4.2, 4.5, 4.0, 4.8, 4.5, 4.2],
-                        borderColor: '#EE5D50',
-                        backgroundColor: '#EE5D50',
-                        borderWidth: 3,
-                        tension: 0.4,
-                        yAxisID: 'y1' // Assign to secondary axis
-                    },
-                    {
-                        type: 'bar',
-                        label: 'New Hires',
-                        data: [15, 22, 18, 25, 20, 30],
-                        backgroundColor: '#4318FF',
-                        borderRadius: 6,
-                        yAxisID: 'y' // Assign to primary axis
-                    }
-                ]
+                datasets: [{
+                    label: 'Turnover %',
+                    data: [4.8, 4.5, 5.1, 4.2, 4.0, 4.2],
+                    borderColor: '#ec4899',
+                    backgroundColor: gradient,
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4, // Super smooth curved lines
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#ec4899',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
             },
             options: {
                 responsive: true,
-                interaction: { mode: 'index', intersect: false },
+                plugins: { legend: { display: false } },
                 scales: {
-                    y: { type: 'linear', display: true, position: 'left', grid: { borderDash: [5, 5] } },
-                    y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false } },
-                    x: { grid: { display: false } }
+                    x: { grid: { display: false, drawBorder: false } },
+                    y: { 
+                        grid: { color: 'rgba(0,0,0,0.03)', drawBorder: false },
+                        ticks: { stepSize: 1 }
+                    }
                 }
             }
         });
 
-        // 2. Table Data Injection
+        // Inject Data into Table
         const jobs = [
-            { title: "Supply Chain Manager", dept: "Planning", status: "Ongoing" },
-            { title: "Financial Auditor", dept: "Finance", status: "Pending" },
-            { title: "HR Business Partner", dept: "HR", status: "Ongoing" },
-            { title: "Mechanical Engineer", dept: "Engineering", status: "Pending" }
+            { role: "Senior Operations Manager", dept: "Planning", status: "Ongoing" },
+            { role: "Frontend UI Developer", dept: "Engineering", status: "Pending" },
+            { role: "Talent Acquisition Lead", dept: "HR", status: "Ongoing" }
         ];
 
         const tbody = document.getElementById('table-data');
-        function renderTable() {
-            tbody.innerHTML = '';
-            jobs.forEach((job, index) => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${job.title}</td>
-                        <td>${job.dept}</td>
-                        <td><span class="status ${job.status.toLowerCase()}">${job.status}</span></td>
-                        <td>
-                            <button class="action-btn" title="Edit"><i class="fas fa-pen"></i></button>
-                            <button class="action-btn" title="Delete" style="color: #EE5D50;"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-        renderTable();
-
-        // 3. Modal Logic
-        const modal = document.getElementById('addModal');
-        function openModal() { modal.style.display = 'flex'; }
-        function closeModal() { modal.style.display = 'none'; }
-        
-        function submitForm(e) {
-            e.preventDefault();
-            const title = document.getElementById('posTitle').value;
-            const dept = document.getElementById('posDept').value;
-            
-            // Add to array and re-render
-            jobs.unshift({ title: title, dept: dept, status: "Pending" });
-            renderTable();
-            closeModal();
-            document.getElementById('addForm').reset();
-            
-            // Optional: Show alert or toast
-            alert('New position added successfully!');
-        }
+        jobs.forEach(job => {
+            let statusClass = job.status === "Ongoing" ? "s-ongoing" : "s-pending";
+            tbody.innerHTML += `
+                <tr>
+                    <td>${job.role}</td>
+                    <td>${job.dept}</td>
+                    <td><span class="status-badge ${statusClass}">${job.status}</span></td>
+                </tr>
+            `;
+        });
     </script>
 </body>
 </html>
