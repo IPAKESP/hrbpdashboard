@@ -3,261 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPAK Pro HRBP Dashboard</title>
+    <title>IPAK Advanced HRBP | Light Mode</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-        /* Animated Gradient Background */
-        body {
-            height: 100vh;
-            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e3a8a);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            color: #ffffff;
+        :root {
+            --bg-app: #F4F7FE;
+            --bg-card: #FFFFFF;
+            --text-main: #2B3674;
+            --text-muted: #A3AED0;
+            --primary: #4318FF;
+            --primary-hover: #3311DB;
+            --success: #05CD99;
+            --warning: #FFCE20;
+            --danger: #EE5D50;
+            --border-radius: 20px;
+            --shadow-soft: 0px 18px 40px rgba(112, 144, 176, 0.12);
+            --border-light: 1px solid #E9EDF7;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-        /* Moving Orbs for extra depth */
-        .orb-1, .orb-2 {
-            position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1;
-        }
-        .orb-1 { width: 400px; height: 400px; background: #8b5cf6; top: -100px; left: -100px; opacity: 0.6; }
-        .orb-2 { width: 500px; height: 500px; background: #3b82f6; bottom: -150px; right: -100px; opacity: 0.5; }
+        body { background-color: var(--bg-app); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
 
-        /* Main Glass Container */
-        .glass-container {
-            width: 95%; height: 92vh;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            display: flex;
-            overflow: hidden;
-        }
+        /* --- Sidebar --- */
+        .sidebar { width: 280px; background: var(--bg-card); padding: 32px 24px; border-right: var(--border-light); display: flex; flex-direction: column; z-index: 10; }
+        .logo { font-size: 26px; font-weight: 700; color: var(--text-main); margin-bottom: 50px; text-align: center; }
+        .logo span { color: var(--primary); }
+        .nav-item { padding: 14px 20px; margin-bottom: 8px; border-radius: 12px; color: var(--text-muted); font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 14px; }
+        .nav-item i { font-size: 18px; }
+        .nav-item:hover { background: #F4F7FE; color: var(--primary); }
+        .nav-item.active { background: var(--primary); color: white; box-shadow: 0px 10px 20px rgba(67, 24, 255, 0.2); }
 
-        /* Sidebar Glass */
-        .sidebar {
-            width: 260px;
-            background: rgba(0, 0, 0, 0.2);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 30px 20px;
-            display: flex; flex-direction: column;
-        }
-        
-        .logo { font-size: 24px; font-weight: 700; margin-bottom: 40px; text-align: center; letter-spacing: 2px; }
-        .logo span { color: #60a5fa; text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
-
-        .nav-item {
-            padding: 15px 20px; margin-bottom: 10px; border-radius: 12px;
-            color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.3s;
-            display: flex; align-items: center; gap: 15px; font-weight: 500;
-        }
-        .nav-item:hover, .nav-item.active {
-            background: rgba(255, 255, 255, 0.1); color: #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Main Dashboard Area */
-        .main-content {
-            flex: 1; padding: 30px 40px; overflow-y: auto;
-        }
-        
-        /* Custom Scrollbar */
+        /* --- Main Content --- */
+        .main-content { flex: 1; padding: 32px 40px; overflow-y: auto; }
         .main-content::-webkit-scrollbar { width: 6px; }
-        .main-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .main-content::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
 
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .header h1 { font-size: 28px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .header h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .btn-primary { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; box-shadow: 0px 10px 20px rgba(67, 24, 255, 0.15); }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
         
-        /* Profile Chip */
-        .profile {
-            display: flex; align-items: center; gap: 15px;
-            background: rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        /* KPI Cards */
-        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
-        .kpi-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px; padding: 25px;
-            position: relative; overflow: hidden; transition: 0.3s;
-        }
-        .kpi-card:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-5px); }
-        
-        .kpi-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-        }
-        .card-1::before { background: #fbbf24; box-shadow: 0 0 10px #fbbf24; }
-        .card-2::before { background: #3b82f6; box-shadow: 0 0 10px #3b82f6; }
-        .card-3::before { background: #10b981; box-shadow: 0 0 10px #10b981; }
-        .card-4::before { background: #f43f5e; box-shadow: 0 0 10px #f43f5e; }
+        .profile-chip { background: var(--bg-card); padding: 8px 16px; border-radius: 30px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-soft); cursor: pointer; font-weight: 600; }
+        .profile-chip img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
 
-        .kpi-title { font-size: 13px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .kpi-value { font-size: 32px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        /* --- KPI Cards --- */
+        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 32px; }
+        .kpi-card { background: var(--bg-card); padding: 24px; border-radius: var(--border-radius); box-shadow: var(--shadow-soft); display: flex; align-items: center; gap: 20px; transition: 0.3s; }
+        .kpi-card:hover { transform: translateY(-4px); }
+        .kpi-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .bg-light-blue { background: #F4F7FE; color: var(--primary); }
+        .bg-light-green { background: rgba(5, 205, 153, 0.1); color: var(--success); }
+        .bg-light-orange { background: rgba(255, 206, 32, 0.1); color: var(--warning); }
+        .bg-light-red { background: rgba(238, 93, 80, 0.1); color: var(--danger); }
+        
+        .kpi-info h3 { font-size: 14px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+        .kpi-info h2 { font-size: 28px; font-weight: 700; color: var(--text-main); }
+        .trend { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 4px; }
+        .trend.up { color: var(--success); }
+        .trend.down { color: var(--danger); }
 
-        /* Charts & Table Layout */
-        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        
-        .glass-panel {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px; padding: 25px;
-        }
-        
-        .glass-panel h3 { font-size: 16px; margin-bottom: 20px; font-weight: 500; color: rgba(255,255,255,0.9); }
+        /* --- Layout Grid (Chart + Table) --- */
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .card-panel { background: var(--bg-card); padding: 28px; border-radius: var(--border-radius); box-shadow: var(--shadow-soft); }
+        .card-panel h2 { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--text-main); }
 
         /* Table */
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 12px; color: rgba(255,255,255,0.5); font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        td { padding: 15px 12px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .status { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; }
-        .status.ongoing { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .status.pending { background: rgba(251, 191, 36, 0.2); color: #fde68a; border: 1px solid rgba(251, 191, 36, 0.3); }
+        th { text-align: left; padding: 16px 12px; color: var(--text-muted); font-size: 13px; font-weight: 600; border-bottom: var(--border-light); }
+        td { padding: 16px 12px; font-size: 14px; font-weight: 600; border-bottom: var(--border-light); color: var(--text-main); }
+        tr:last-child td { border-bottom: none; }
+        
+        .status { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; }
+        .status.ongoing { background: #E6FAEE; color: var(--success); }
+        .status.pending { background: #FFF7D8; color: #D4A700; }
+        
+        .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; margin-right: 10px; transition: 0.2s; }
+        .action-btn:hover { color: var(--primary); }
 
+        /* --- Modal (Popup Form) --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 100; }
+        .modal { background: var(--bg-card); width: 450px; padding: 32px; border-radius: var(--border-radius); box-shadow: 0px 20px 50px rgba(0,0,0,0.2); animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .modal-header h2 { font-size: 22px; }
+        .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+        
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #E9EDF7; font-size: 14px; outline: none; transition: 0.3s; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.1); }
     </style>
 </head>
 <body>
 
-    <div class="orb-1"></div>
-    <div class="orb-2"></div>
+    <aside class="sidebar">
+        <div class="logo">IPAK<span>.HRBP</span></div>
+        <div class="nav-item active"><i class="fas fa-grid-2"></i> Dashboard</div>
+        <div class="nav-item"><i class="fas fa-briefcase"></i> Requisitions</div>
+        <div class="nav-item"><i class="fas fa-chart-pie"></i> Analytics</div>
+        <div class="nav-item"><i class="fas fa-users"></i> Employees</div>
+        <div class="nav-item" style="margin-top: auto;"><i class="fas fa-cog"></i> Settings</div>
+    </aside>
 
-    <div class="glass-container">
-        <aside class="sidebar">
-            <div class="logo">IPAK<span>HRBP</span></div>
-            <div class="nav-item active"><i class="fas fa-home"></i> Dashboard</div>
-            <div class="nav-item"><i class="fas fa-briefcase"></i> Positions</div>
-            <div class="nav-item"><i class="fas fa-chart-pie"></i> Analytics</div>
-            <div class="nav-item"><i class="fas fa-users"></i> Talent Pool</div>
-        </aside>
-
-        <main class="main-content">
-            <div class="header">
-                <h1>Overview</h1>
-                <div class="profile">
-                    <span>Hr Manager</span>
-                    <div style="width:35px; height:35px; background:linear-gradient(45deg, #60a5fa, #3b82f6); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">HR</div>
+    <main class="main-content">
+        <header class="header">
+            <div>
+                <p style="color: var(--text-muted); font-size: 14px; font-weight: 500;">Good Morning, Anser</p>
+                <h1>Dashboard Overview</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> New Position</button>
+                <div class="profile-chip">
+                    <img src="https://ui-avatars.com/api/?name=Anser+Ali&background=4318FF&color=fff" alt="Profile">
+                    <span>Anser Ali</span>
                 </div>
             </div>
+        </header>
 
-            <div class="kpi-grid">
-                <div class="kpi-card card-1">
-                    <div class="kpi-title">Pending Roles</div>
-                    <div class="kpi-value">12</div>
-                </div>
-                <div class="kpi-card card-2">
-                    <div class="kpi-title">Ongoing Hiring</div>
-                    <div class="kpi-value">28</div>
-                </div>
-                <div class="kpi-card card-3">
-                    <div class="kpi-title">Time to Fill</div>
-                    <div class="kpi-value">24d</div>
-                </div>
-                <div class="kpi-card card-4">
-                    <div class="kpi-title">Turnover Rate</div>
-                    <div class="kpi-value">4.2%</div>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon bg-light-orange"><i class="fas fa-hourglass-half"></i></div>
+                <div class="kpi-info">
+                    <h3>Pending Roles</h3>
+                    <h2>12</h2>
+                    <div class="trend down"><i class="fas fa-arrow-down"></i> -2 from last week</div>
                 </div>
             </div>
-
-            <div class="bottom-grid">
-                <div class="glass-panel">
-                    <h3>Turnover Trend (YTD)</h3>
-                    <canvas id="glassChart" height="150"></canvas>
-                </div>
-                
-                <div class="glass-panel">
-                    <h3>Pipeline Status</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ROLE</th>
-                                <th>DEPT</th>
-                                <th>STATUS</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body">
-                            </tbody>
-                    </table>
+            <div class="kpi-card">
+                <div class="kpi-icon bg-light-blue"><i class="fas fa-sync fa-spin-pulse"></i></div>
+                <div class="kpi-info">
+                    <h3>Ongoing Hiring</h3>
+                    <h2>34</h2>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> +5 vs last month</div>
                 </div>
             </div>
-        </main>
+            <div class="kpi-card">
+                <div class="kpi-icon bg-light-green"><i class="fas fa-clock"></i></div>
+                <div class="kpi-info">
+                    <h3>Avg Time to Fill</h3>
+                    <h2>28d</h2>
+                    <div class="trend up"><i class="fas fa-check-circle"></i> On Target</div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon bg-light-red"><i class="fas fa-user-minus"></i></div>
+                <div class="kpi-info">
+                    <h3>Turnover Rate</h3>
+                    <h2>4.5%</h2>
+                    <div class="trend down"><i class="fas fa-arrow-down"></i> -0.5% vs YTD</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="card-panel">
+                <h2>Hiring vs Turnover Analytics</h2>
+                <canvas id="mixedChart" height="220"></canvas>
+            </div>
+
+            <div class="card-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <h2 style="margin: 0;">Active Pipeline</h2>
+                    <a href="#" style="color: var(--primary); font-size: 14px; font-weight: 600; text-decoration: none;">View All</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>POSITION</th>
+                            <th>DEPARTMENT</th>
+                            <th>STATUS</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-data">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="addModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add New Position</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="addForm" onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label>Position Title</label>
+                    <input type="text" id="posTitle" placeholder="e.g. Senior Analyst" required>
+                </div>
+                <div class="form-group">
+                    <label>Department</label>
+                    <select id="posDept">
+                        <option>Planning</option>
+                        <option>Engineering</option>
+                        <option>HR</option>
+                        <option>Finance</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">Save Position</button>
+            </form>
+        </div>
     </div>
 
     <script>
-        // Glassmorphism Chart.js Setup
-        Chart.defaults.color = 'rgba(255, 255, 255, 0.6)';
-        Chart.defaults.font.family = "'Poppins', sans-serif";
-
-        const ctx = document.getElementById('glassChart').getContext('2d');
-        
-        // Create Gradient for Chart Line
-        let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(96, 165, 250, 0.5)');   
-        gradient.addColorStop(1, 'rgba(96, 165, 250, 0)');
-
+        // 1. Advanced Mixed Chart (Bar + Line)
+        const ctx = document.getElementById('mixedChart').getContext('2d');
         new Chart(ctx, {
-            type: 'line',
+            type: 'bar', // Base type
             data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Turnover %',
-                    data: [5.2, 4.8, 5.0, 4.5, 4.3, 4.2],
-                    borderColor: '#60a5fa',
-                    backgroundColor: gradient,
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4, // smooth curves
-                    pointBackgroundColor: '#ffffff',
-                    pointBorderColor: '#60a5fa',
-                    pointBorderWidth: 2,
-                    pointRadius: 4
-                }]
+                datasets: [
+                    {
+                        type: 'line',
+                        label: 'Turnover (%)',
+                        data: [4.2, 4.5, 4.0, 4.8, 4.5, 4.2],
+                        borderColor: '#EE5D50',
+                        backgroundColor: '#EE5D50',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        yAxisID: 'y1' // Assign to secondary axis
+                    },
+                    {
+                        type: 'bar',
+                        label: 'New Hires',
+                        data: [15, 22, 18, 25, 20, 30],
+                        backgroundColor: '#4318FF',
+                        borderRadius: 6,
+                        yAxisID: 'y' // Assign to primary axis
+                    }
+                ]
             },
             options: {
                 responsive: true,
-                plugins: { legend: { display: false } },
+                interaction: { mode: 'index', intersect: false },
                 scales: {
-                    x: { grid: { display: false, drawBorder: false } },
-                    y: { grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false } }
+                    y: { type: 'linear', display: true, position: 'left', grid: { borderDash: [5, 5] } },
+                    y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false } },
+                    x: { grid: { display: false } }
                 }
             }
         });
 
-        // Table Data Injection
-        const data = [
-            { role: "Backend Lead", dept: "Engineering", status: "Ongoing" },
-            { role: "Brand Manager", dept: "Marketing", status: "Pending" },
-            { role: "Data Scientist", dept: "Analytics", status: "Ongoing" },
-            { role: "HR Exec", dept: "People", status: "Pending" }
+        // 2. Table Data Injection
+        const jobs = [
+            { title: "Supply Chain Manager", dept: "Planning", status: "Ongoing" },
+            { title: "Financial Auditor", dept: "Finance", status: "Pending" },
+            { title: "HR Business Partner", dept: "HR", status: "Ongoing" },
+            { title: "Mechanical Engineer", dept: "Engineering", status: "Pending" }
         ];
 
-        const tbody = document.getElementById('table-body');
-        data.forEach(item => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${item.role}</td>
-                    <td>${item.dept}</td>
-                    <td><span class="status ${item.status.toLowerCase()}">${item.status}</span></td>
-                </tr>
-            `;
-        });
+        const tbody = document.getElementById('table-data');
+        function renderTable() {
+            tbody.innerHTML = '';
+            jobs.forEach((job, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${job.title}</td>
+                        <td>${job.dept}</td>
+                        <td><span class="status ${job.status.toLowerCase()}">${job.status}</span></td>
+                        <td>
+                            <button class="action-btn" title="Edit"><i class="fas fa-pen"></i></button>
+                            <button class="action-btn" title="Delete" style="color: #EE5D50;"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+        renderTable();
+
+        // 3. Modal Logic
+        const modal = document.getElementById('addModal');
+        function openModal() { modal.style.display = 'flex'; }
+        function closeModal() { modal.style.display = 'none'; }
+        
+        function submitForm(e) {
+            e.preventDefault();
+            const title = document.getElementById('posTitle').value;
+            const dept = document.getElementById('posDept').value;
+            
+            // Add to array and re-render
+            jobs.unshift({ title: title, dept: dept, status: "Pending" });
+            renderTable();
+            closeModal();
+            document.getElementById('addForm').reset();
+            
+            // Optional: Show alert or toast
+            alert('New position added successfully!');
+        }
     </script>
 </body>
 </html>
