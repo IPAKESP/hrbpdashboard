@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPAK Premium HRBP | Light Glass</title>
+    <title>IPAK Clean White HRBP Dashboard</title>
     
-    <!-- Plus Jakarta Sans for that ultra-premium Apple-like typography -->
+    <!-- Plus Jakarta Sans for Apple-like premium typography -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,126 +14,126 @@
 
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.7);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
-            --text-dark: #1e293b;
+            /* White Theme Variables */
+            --base-bg: #FFFFFF;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 1);
+            --glass-shadow: 0 14px 40px rgba(149, 157, 165, 0.12); /* Soft shadow for white base */
+            
+            --text-dark: #0f172a;
             --text-muted: #64748b;
-            --accent-blue: #3b82f6;
-            --accent-pink: #ec4899;
+            --accent-blue: #2563eb;
+            --accent-purple: #7c3aed;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* Animated Mesh Gradient Background */
+        /* Pure White Base Background */
         body {
             height: 100vh;
-            background-color: #e0eafc;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(253,16%,7deg,0) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(225,39%,30deg,0) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(339,49%,30deg,0) 0, transparent 50%);
+            background-color: var(--base-bg);
+            /* Very subtle dot pattern for a tech feel */
+            background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
             overflow: hidden;
             display: flex;
             position: relative;
         }
 
-        /* Floating Background Orbs for the Light Glass Effect */
-        .orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; animation: float 10s infinite ease-in-out alternate; }
-        .orb-1 { width: 500px; height: 500px; background: #c2e9fb; top: -10%; left: -10%; }
-        .orb-2 { width: 400px; height: 400px; background: #fbc2eb; bottom: -10%; right: -5%; animation-delay: -5s; }
-        .orb-3 { width: 300px; height: 300px; background: #e0c3fc; top: 40%; left: 40%; animation-duration: 15s; }
+        /* Floating Background Orbs - Very Soft Pastel for White Base */
+        .orb { position: absolute; border-radius: 50%; filter: blur(90px); z-index: -1; animation: float 12s infinite ease-in-out alternate; }
+        .orb-1 { width: 500px; height: 500px; background: #e0f2fe; top: -10%; left: -5%; } /* Light Ice Blue */
+        .orb-2 { width: 450px; height: 450px; background: #f3e8ff; bottom: -10%; right: -5%; animation-delay: -6s; } /* Soft Purple */
 
         @keyframes float {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, 50px) scale(1.1); }
+            100% { transform: translate(40px, 40px) scale(1.05); }
         }
 
-        /* Glassmorphism Reusable Class */
+        /* Glass Panel Styling for White Mode */
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
             border-radius: 24px;
         }
 
         /* --- Layout --- */
-        .app-container { display: flex; width: 100%; height: 100vh; padding: 20px; gap: 20px; z-index: 10; }
+        .app-container { display: flex; width: 100%; height: 100vh; padding: 24px; gap: 24px; z-index: 10; }
 
         /* Sidebar */
-        .sidebar { width: 260px; padding: 30px 20px; display: flex; flex-direction: column; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--text-dark); margin-bottom: 50px; text-align: center; letter-spacing: -0.5px; }
-        .logo span { background: linear-gradient(45deg, var(--accent-blue), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .sidebar { width: 270px; padding: 35px 24px; display: flex; flex-direction: column; }
+        .logo { font-size: 26px; font-weight: 800; color: var(--text-dark); margin-bottom: 50px; text-align: center; letter-spacing: -0.5px; }
+        .logo span { color: var(--accent-blue); }
         
-        .nav-item { padding: 14px 20px; margin-bottom: 10px; border-radius: 16px; color: var(--text-muted); font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 15px; }
-        .nav-item:hover { background: rgba(255, 255, 255, 0.5); color: var(--text-dark); }
-        .nav-item.active { background: rgba(255, 255, 255, 0.8); color: var(--accent-blue); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .nav-item { padding: 14px 20px; margin-bottom: 8px; border-radius: 14px; color: var(--text-muted); font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 15px; }
+        .nav-item:hover { background: rgba(0, 0, 0, 0.02); color: var(--text-dark); }
+        .nav-item.active { background: #eff6ff; color: var(--accent-blue); border: 1px solid #bfdbfe; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08); }
 
         /* Main Content */
-        .main-content { flex: 1; padding: 30px 40px; overflow-y: auto; display: flex; flex-direction: column; gap: 30px; }
-        .main-content::-webkit-scrollbar { display: none; } /* Hide scrollbar for ultra-clean look */
+        .main-content { flex: 1; padding: 20px 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 30px; }
+        .main-content::-webkit-scrollbar { display: none; }
 
         /* Header */
         .header { display: flex; justify-content: space-between; align-items: center; }
         .header h1 { font-size: 32px; font-weight: 800; color: var(--text-dark); letter-spacing: -1px; }
         
-        .profile-chip { padding: 8px 16px; border-radius: 30px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.3s; }
-        .profile-chip:hover { background: rgba(255,255,255,0.8); }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--accent-blue); }
+        .profile-chip { padding: 8px 16px; border-radius: 30px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.3s; border: 1px solid #e2e8f0; background: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .profile-chip:hover { box-shadow: 0 6px 15px rgba(0,0,0,0.06); }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #ffffff; }
 
         /* KPI Grid */
-        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .kpi-card { padding: 25px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
-        .kpi-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.6); }
-        
-        /* Subtle Color Accents inside KPI cards */
-        .kpi-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; border-radius: 50%; opacity: 0.15; filter: blur(20px); }
-        .c-pending::before { background: #f59e0b; }
-        .c-ongoing::before { background: #3b82f6; }
-        .c-ttf::before { background: #10b981; }
-        .c-turnover::before { background: #ef4444; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .kpi-card { padding: 28px; transition: transform 0.3s ease; position: relative; overflow: hidden; }
+        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(149, 157, 165, 0.2); }
 
-        .kpi-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .kpi-value { font-size: 36px; font-weight: 800; color: var(--text-dark); }
+        .kpi-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 16px; }
+        .i-pending { background: #fef3c7; color: #d97706; }
+        .i-ongoing { background: #dbeafe; color: #2563eb; }
+        .i-ttf { background: #d1fae5; color: #059669; }
+        .i-turnover { background: #fee2e2; color: #dc2626; }
+
+        .kpi-title { font-size: 14px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+        .kpi-value { font-size: 36px; font-weight: 800; color: var(--text-dark); display: flex; align-items: baseline; gap: 5px; }
+        .kpi-value span { font-size: 16px; font-weight: 600; color: var(--text-muted); }
 
         /* Charts & Table Area */
-        .data-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
+        .data-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 24px; }
         .section-card { padding: 30px; }
         .section-card h2 { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 25px; }
 
-        /* Glass Table */
-        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+        /* Clean Table */
+        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
         th { text-align: left; padding: 0 15px 10px; color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        td { padding: 15px; background: rgba(255, 255, 255, 0.3); font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        td { padding: 16px 15px; background: rgba(248, 250, 252, 0.6); font-size: 14px; font-weight: 600; color: var(--text-dark); }
         td:first-child { border-radius: 12px 0 0 12px; }
         td:last-child { border-radius: 0 12px 12px 0; }
-        tr { transition: 0.2s; }
-        tr:hover td { background: rgba(255, 255, 255, 0.6); }
+        tr { transition: 0.2s; cursor: pointer; }
+        tr:hover td { background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
 
-        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
-        .s-ongoing { background: rgba(59, 130, 246, 0.15); color: #2563eb; }
-        .s-pending { background: rgba(245, 158, 11, 0.15); color: #d97706; }
+        .status-badge { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .s-ongoing { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+        .s-pending { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
 
     </style>
 </head>
 <body>
 
-    <!-- Background Animated Orbs -->
+    <!-- Soft White Base Orbs -->
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
 
     <div class="app-container">
         
         <!-- Sidebar -->
         <aside class="glass-panel sidebar">
             <div class="logo">IPAK<span>.HRBP</span></div>
-            <div class="nav-item active"><i class="fas fa-layer-group"></i> Overview</div>
-            <div class="nav-item"><i class="fas fa-users-viewfinder"></i> Requisitions</div>
-            <div class="nav-item"><i class="fas fa-chart-simple"></i> Analytics</div>
-            <div class="nav-item"><i class="fas fa-arrow-right-arrow-left"></i> Turnover</div>
+            <div class="nav-item active"><i class="fas fa-border-all"></i> Dashboard</div>
+            <div class="nav-item"><i class="fas fa-briefcase"></i> Requisitions</div>
+            <div class="nav-item"><i class="fas fa-chart-line"></i> Analytics</div>
+            <div class="nav-item"><i class="fas fa-users"></i> Directory</div>
         </aside>
 
         <!-- Main Workspace -->
@@ -141,32 +141,36 @@
             
             <header class="header">
                 <div>
-                    <h1 style="font-size: 20px; color: var(--text-muted); font-weight: 600;">Good Morning, Anser 👋</h1>
-                    <h1>Dashboard</h1>
+                    <h1 style="font-size: 16px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">Good Morning, Anser 👋</h1>
+                    <h1>Overview</h1>
                 </div>
-                <div class="glass-panel profile-chip">
+                <div class="profile-chip">
                     <div class="avatar">A</div>
-                    <span style="font-weight: 700; font-size: 14px; color: var(--text-dark);">Anser Ali</span>
+                    <span style="font-weight: 600; font-size: 14px; color: var(--text-dark);">Anser Ali</span>
                 </div>
             </header>
 
             <!-- KPIs -->
             <div class="kpi-grid">
-                <div class="glass-panel kpi-card c-pending">
-                    <div class="kpi-title">Pending</div>
+                <div class="glass-panel kpi-card">
+                    <div class="kpi-icon i-pending"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="kpi-title">Pending Roles</div>
                     <div class="kpi-value">12</div>
                 </div>
-                <div class="glass-panel kpi-card c-ongoing">
-                    <div class="kpi-title">Ongoing</div>
+                <div class="glass-panel kpi-card">
+                    <div class="kpi-icon i-ongoing"><i class="fas fa-sync fa-spin-pulse"></i></div>
+                    <div class="kpi-title">Ongoing Hiring</div>
                     <div class="kpi-value">28</div>
                 </div>
-                <div class="glass-panel kpi-card c-ttf">
+                <div class="glass-panel kpi-card">
+                    <div class="kpi-icon i-ttf"><i class="fas fa-calendar-check"></i></div>
                     <div class="kpi-title">Time to Fill</div>
-                    <div class="kpi-value">32<span style="font-size: 18px; color: var(--text-muted);">d</span></div>
+                    <div class="kpi-value">32<span>days</span></div>
                 </div>
-                <div class="glass-panel kpi-card c-turnover">
-                    <div class="kpi-title">Turnover</div>
-                    <div class="kpi-value">4.2<span style="font-size: 18px; color: var(--text-muted);">%</span></div>
+                <div class="glass-panel kpi-card">
+                    <div class="kpi-icon i-turnover"><i class="fas fa-user-minus"></i></div>
+                    <div class="kpi-title">Turnover Rate</div>
+                    <div class="kpi-value">4.2<span>%</span></div>
                 </div>
             </div>
 
@@ -176,16 +180,19 @@
                 <!-- Chart -->
                 <div class="glass-panel section-card">
                     <h2>Turnover Trend (YTD)</h2>
-                    <canvas id="glassLineChart" height="200"></canvas>
+                    <canvas id="whiteGlassChart" height="200"></canvas>
                 </div>
 
                 <!-- Table -->
                 <div class="glass-panel section-card">
-                    <h2>Active Pipeline</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                        <h2 style="margin: 0;">Active Pipeline</h2>
+                        <i class="fas fa-ellipsis-h" style="color: var(--text-muted); cursor: pointer;"></i>
+                    </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Role</th>
+                                <th>Position</th>
                                 <th>Department</th>
                                 <th>Status</th>
                             </tr>
@@ -201,17 +208,14 @@
     </div>
 
     <script>
-        // Set Chart defaults to match typography
         Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
-        Chart.defaults.color = '#64748b';
+        Chart.defaults.color = '#94a3b8';
 
-        // Initialize Smooth Glass Chart
-        const ctx = document.getElementById('glassLineChart').getContext('2d');
+        const ctx = document.getElementById('whiteGlassChart').getContext('2d');
         
-        // Beautiful transparent gradient for the line chart fill
-        let gradient = ctx.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, 'rgba(236, 72, 153, 0.4)'); // Pinkish top
-        gradient.addColorStop(1, 'rgba(236, 72, 153, 0)');   // Fades out
+        let gradient = ctx.createLinearGradient(0, 0, 0, 250);
+        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.2)'); // Soft blue 
+        gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');   
 
         new Chart(ctx, {
             type: 'line',
@@ -220,13 +224,13 @@
                 datasets: [{
                     label: 'Turnover %',
                     data: [4.8, 4.5, 5.1, 4.2, 4.0, 4.2],
-                    borderColor: '#ec4899',
+                    borderColor: '#2563eb', // Clean blue line
                     backgroundColor: gradient,
                     borderWidth: 3,
                     fill: true,
-                    tension: 0.4, // Super smooth curved lines
+                    tension: 0.4,
                     pointBackgroundColor: '#ffffff',
-                    pointBorderColor: '#ec4899',
+                    pointBorderColor: '#2563eb',
                     pointBorderWidth: 2,
                     pointRadius: 4,
                     pointHoverRadius: 6
@@ -238,18 +242,17 @@
                 scales: {
                     x: { grid: { display: false, drawBorder: false } },
                     y: { 
-                        grid: { color: 'rgba(0,0,0,0.03)', drawBorder: false },
+                        grid: { color: 'rgba(0,0,0,0.04)', drawBorder: false },
                         ticks: { stepSize: 1 }
                     }
                 }
             }
         });
 
-        // Inject Data into Table
         const jobs = [
-            { role: "Senior Operations Manager", dept: "Planning", status: "Ongoing" },
-            { role: "Frontend UI Developer", dept: "Engineering", status: "Pending" },
-            { role: "Talent Acquisition Lead", dept: "HR", status: "Ongoing" }
+            { role: "Senior Operations Manager", dept: "Planning & Dispatch", status: "Ongoing" },
+            { role: "Frontend Developer", dept: "IT & Systems", status: "Pending" },
+            { role: "Talent Acquisition Lead", dept: "Human Resources", status: "Ongoing" }
         ];
 
         const tbody = document.getElementById('table-data');
