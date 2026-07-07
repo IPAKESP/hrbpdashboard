@@ -73,9 +73,7 @@
             border-bottom: 1px solid var(--border);
             box-shadow: var(--shadow-sm);
         }
-        .nav-brand { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--ink); letter-spacing: -0.5px; }
-        .nav-brand span { color: var(--brand-blue); }
-
+        
         /* Layout */
         .page-wrapper { padding-top: 70px; display: flex; height: 100vh; overflow: hidden; }
 
@@ -103,17 +101,17 @@
         .main-content { flex: 1; padding: 24px 36px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
         .main-content::-webkit-scrollbar { display: none; }
 
-        /* Smaller KPI Grid */
+        /* KPI Grid - Adjusted Heights */
         .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-        .kpi-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; box-shadow: var(--shadow-sm); transition: 0.3s; }
+        .kpi-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow-sm); transition: 0.3s; }
         .kpi-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); border-color: rgba(37,99,235,0.2); }
-        .kpi-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; }
+        .kpi-icon { width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; margin-bottom: 6px; }
         .i-pending { background: rgba(245,158,11,0.1); color: #F59E0B; }
         .i-ongoing { background: rgba(37,99,235,0.1); color: #2563EB; }
         .i-ttf { background: rgba(16,185,129,0.1); color: #10B981; }
-        .kpi-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
-        .kpi-value { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; gap: 4px; }
-        .kpi-value span { font-size: 12px; font-weight: 600; color: var(--muted-2); }
+        .kpi-title { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+        .kpi-value { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; gap: 4px; }
+        .kpi-value span { font-size: 11px; font-weight: 600; color: var(--muted-2); }
 
         /* Main Cards */
         .section-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow-sm); flex: 1; display: flex; flex-direction: column; min-height: 0; }
@@ -148,11 +146,12 @@
 <body>
 
     <nav class="navbar">
-        <div class="nav-brand" style="display: flex; align-items: center; gap: 10px;">
+        <div style="display: flex; align-items: center;">
             <img src="logo.png" alt="Logo" style="height: 32px; width: auto; object-fit: contain;" onerror="this.style.display='none'">
-            <div>IPAK<span>.HRBP</span></div>
         </div>
-        <!-- Profile Chip Removed -->
+        <div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px;">
+            HRBP Dashboard
+        </div>
     </nav>
 
     <div class="page-wrapper">
@@ -186,8 +185,6 @@
 
         <main class="main-content">
             
-            <!-- Header Text Removed -->
-
             <!-- Smaller KPIs -->
             <div class="kpi-grid">
                 <div class="interactive-card kpi-card">
