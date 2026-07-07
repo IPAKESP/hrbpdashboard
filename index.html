@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPAK Clean White HRBP Dashboard (Premium UI)</title>
 
-    <!-- Google Fonts: Outfit (Display) & Inter (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
@@ -24,6 +24,7 @@
             --bg: #F8FAFC;
             --brand-purple: #7C3AED;
             --brand-blue: #2563EB;
+            --brand-green: #10B981;
             --brand-gradient: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
             --border: rgba(226, 232, 240, 0.8);
             --font-display: 'Outfit', sans-serif;
@@ -104,13 +105,13 @@
         .btn-reset:hover { background: var(--brand-blue); box-shadow: var(--shadow-glow); }
 
         /* Main Content */
-        .main-content { flex: 1; padding: 28px 36px; overflow-y: auto; display: flex; flex-direction: column; gap: 28px; }
+        .main-content { flex: 1; padding: 28px 36px; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
         .main-content::-webkit-scrollbar { display: none; }
 
         .header h1 { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--ink); }
         .header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
 
-        /* KPI Grid (Updated to 3 columns) */
+        /* KPI Grid */
         .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .kpi-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); transition: 0.3s; }
         .kpi-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); border-color: rgba(37,99,235,0.2); }
@@ -122,11 +123,12 @@
         .kpi-value { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; gap: 4px; }
         .kpi-value span { font-size: 14px; font-weight: 600; color: var(--muted-2); }
 
-        /* Middle Section: Header */
+        /* Trends Grid (Joiners & Leavers) */
+        .trends-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .section-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); flex: 1; display: flex; flex-direction: column; }
         .section-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 20px; }
 
-        /* Sheet Data List (hire95 Style) */
+        /* Sheet Data List */
         .cand-list { display: flex; flex-direction: column; gap: 12px; overflow-y: auto;}
         .cand-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); }
         .cand-card::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: transparent; transition: 0.3s; }
@@ -151,7 +153,6 @@
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-brand">IPAK<span>.HRBP</span></div>
         <div class="profile-chip">
@@ -162,7 +163,6 @@
 
     <div class="page-wrapper">
         
-        <!-- Sidebar Filters -->
         <aside class="sidebar interactive-card">
             <div class="sidebar-title">Data Filters</div>
             
@@ -190,7 +190,6 @@
             <button class="btn-reset" onclick="resetFilters()">Reset Filters</button>
         </aside>
 
-        <!-- Main Workspace -->
         <main class="main-content">
             
             <header class="header">
@@ -198,7 +197,6 @@
                 <h1>Planning & Dispatch Overview</h1>
             </header>
 
-            <!-- KPIs -->
             <div class="kpi-grid">
                 <div class="interactive-card kpi-card">
                     <div class="kpi-icon i-pending"><i class="fas fa-hourglass-half"></i></div>
@@ -217,7 +215,25 @@
                 </div>
             </div>
 
-            <!-- Google Sheets Data Section -->
+            <div class="trends-grid">
+                <div class="section-card interactive-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div class="section-title" style="margin: 0;"><span style="color: var(--brand-green); margin-right: 8px;">●</span>Joiners Trend</div>
+                    </div>
+                    <div style="height: 200px; width: 100%;">
+                        <canvas id="chartJoiners"></canvas>
+                    </div>
+                </div>
+                <div class="section-card interactive-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div class="section-title" style="margin: 0;"><span style="color: var(--brand-blue); margin-right: 8px;">●</span>Leavers Trend</div>
+                    </div>
+                    <div style="height: 200px; width: 100%;">
+                        <canvas id="chartLeavers"></canvas>
+                    </div>
+                </div>
+            </div>
+
             <div class="section-card interactive-card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <div class="section-title" style="margin: 0;">Requisitions Database</div>
@@ -226,12 +242,11 @@
                 
                 <div id="loading-spinner" class="loading-state">
                     <i class="fas fa-circle-notch fa-spin"></i>
-                    <p>Syncing with Google Sheets...</p>
+                    <p>Syncing Data...</p>
                 </div>
 
                 <div class="cand-list" id="sheet-data-list">
-                    <!-- Data will be populated here via JS -->
-                </div>
+                    </div>
             </div>
 
         </main>
@@ -250,13 +265,7 @@
         }
         initSpotlight();
 
-        // --- 2. Google Sheets Fetch & Dynamic Logic ---
-        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRpF4BWFF-0qExGjvRqxqFZrF7t4lqtWmwB1gpTZS111ti5OT71yTkK1jOT4yquRDZHRScgW8dZNeWY/pub?output=csv";
-        
-        let allData = [];
-        let filterOptions = { Company: new Set(), Department: new Set(), Section: new Set(), HRBP: new Set(), Status: new Set() };
-
-        // Basic CSV Parser
+        // --- Basic CSV Parser ---
         function parseCSV(text) {
             const rows = [];
             let row = [], val = '', inQuotes = false;
@@ -272,9 +281,106 @@
             return rows;
         }
 
-        async function fetchSheetData() {
+        // =====================================================================
+        // --- SECTION A: TREND CHARTS (Corporate HR Sheet) ---
+        // =====================================================================
+        const TRENDS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPcR5zF9y3FOUxNN1b5aiJDRlCjm-8Di1QzcP4BhzefQaeHpClaGeE4_bKkkPA27LqTOje4MoOKEen/pub?gid=798992094&single=true&output=csv";
+        let chartJoiners, chartLeavers;
+
+        function initTrendCharts() {
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#94a3b8';
+
+            const commonOptions = {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)', titleColor: '#0F172A', bodyColor: '#0F172A',
+                        borderColor: '#E2E8F0', borderWidth: 1, padding: 10, cornerRadius: 8,
+                        titleFont: { size: 12, family: "'Inter', sans-serif" }, 
+                        bodyFont: { size: 14, weight: 'bold', family: "'Inter', sans-serif" }
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false, drawBorder: false }, ticks: { font: { weight: '500' } } },
+                    y: { grid: { color: 'rgba(0,0,0,0.04)', drawBorder: false }, beginAtZero: true }
+                }
+            };
+
+            const ctxJoin = document.getElementById('chartJoiners').getContext('2d');
+            chartJoiners = new Chart(ctxJoin, {
+                type: 'bar',
+                data: { labels: [], datasets: [{ backgroundColor: '#10B981', borderRadius: 4, barPercentage: 0.6, data: [] }] },
+                options: commonOptions
+            });
+
+            const ctxLeave = document.getElementById('chartLeavers').getContext('2d');
+            chartLeavers = new Chart(ctxLeave, {
+                type: 'bar',
+                data: { labels: [], datasets: [{ backgroundColor: '#3B82F6', borderRadius: 4, barPercentage: 0.6, data: [] }] },
+                options: commonOptions
+            });
+        }
+
+        async function fetchTrendData() {
             try {
-                const response = await fetch(SHEET_URL);
+                const response = await fetch(TRENDS_SHEET_URL);
+                const csvText = await response.text();
+                const rows = parseCSV(csvText);
+                
+                if (rows.length < 2) return;
+                const headers = rows[0].map(h => h.toLowerCase().trim());
+                
+                const monthCol = headers.findIndex(h => h.includes('month') || h.includes('mahina'));
+                const joinersCol = headers.findIndex(h => h.includes('joiners') || h.includes('join'));
+                const leaversCol = headers.findIndex(h => h.includes('leavers') || h.includes('leave count'));
+
+                let monthlyStats = {};
+
+                rows.slice(1).forEach(row => {
+                    if (row.length < 2) return;
+                    let month = monthCol >= 0 ? row[monthCol].trim() : "Unknown";
+                    let joiners = joinersCol >= 0 ? (parseFloat(row[joinersCol].replace(/[^\d.-]/g, '')) || 0) : 0;
+                    let leavers = leaversCol >= 0 ? (parseFloat(row[leaversCol].replace(/[^\d.-]/g, '')) || 0) : 0;
+
+                    if (!monthlyStats[month]) monthlyStats[month] = { joiners: 0, leavers: 0 };
+                    monthlyStats[month].joiners += joiners;
+                    monthlyStats[month].leavers += leavers;
+                });
+
+                let chartLabels = Object.keys(monthlyStats).filter(m => m !== "Unknown" && m !== "");
+                const monthsMap = { "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6, "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12 };
+                chartLabels.sort((a, b) => (monthsMap[a.toLowerCase().substring(0, 3)] || 99) - (monthsMap[b.toLowerCase().substring(0, 3)] || 99));
+
+                let joinersData = chartLabels.map(lbl => monthlyStats[lbl].joiners);
+                let leaversData = chartLabels.map(lbl => monthlyStats[lbl].leavers);
+
+                chartJoiners.data.labels = chartLabels;
+                chartJoiners.data.datasets[0].data = joinersData;
+                chartJoiners.update();
+
+                chartLeavers.data.labels = chartLabels;
+                chartLeavers.data.datasets[0].data = leaversData;
+                chartLeavers.update();
+
+            } catch (error) {
+                console.error("Error fetching trends sheet:", error);
+            }
+        }
+
+
+        // =====================================================================
+        // --- SECTION B: REQUISITIONS DATA (HRBP Sheet) ---
+        // =====================================================================
+        const REQ_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRpF4BWFF-0qExGjvRqxqFZrF7t4lqtWmwB1gpTZS111ti5OT71yTkK1jOT4yquRDZHRScgW8dZNeWY/pub?output=csv";
+        
+        let allReqData = [];
+        let filterOptions = { Company: new Set(), Department: new Set(), Section: new Set(), HRBP: new Set(), Status: new Set() };
+
+        async function fetchRequisitionsData() {
+            try {
+                const response = await fetch(REQ_SHEET_URL);
                 const data = await response.text();
                 const rows = parseCSV(data);
                 
@@ -282,7 +388,6 @@
 
                 const headers = rows[0].map(h => h.toLowerCase().replace(/[^a-z0-9]/g, ''));
                 
-                // Map columns
                 const colMap = {
                     company: headers.findIndex(h => h.includes('company')),
                     department: headers.findIndex(h => h.includes('department')),
@@ -293,7 +398,7 @@
                     ttf: headers.findIndex(h => h.includes('time') || h.includes('days') || h.includes('ttf') || h.includes('duration'))
                 };
 
-                allData = rows.slice(1).filter(r => r.length > 1).map(row => {
+                allReqData = rows.slice(1).filter(r => r.length > 1).map(row => {
                     let item = {
                         Role: colMap.role >= 0 ? row[colMap.role] : (row[0] || 'Unknown Role'),
                         Company: colMap.company >= 0 ? row[colMap.company] : 'N/A',
@@ -314,11 +419,11 @@
                 });
 
                 populateFilters();
-                applyFilters(); // Apply initial filter to render list & update KPIs
+                applyFilters(); 
 
             } catch (error) {
-                console.error("Error fetching sheet:", error);
-                document.getElementById('loading-spinner').innerHTML = `<p style="color:red;">Failed to load data. Please ensure the Google Sheet is published to the web.</p>`;
+                console.error("Error fetching req sheet:", error);
+                document.getElementById('loading-spinner').innerHTML = `<p style="color:red;">Failed to load requisitions data.</p>`;
             }
         }
 
@@ -348,17 +453,9 @@
 
             data.forEach(item => {
                 let statusLower = item.Status.toLowerCase();
-                
-                // Count Pending
-                if (statusLower.includes('pending')) {
-                    pendingCount++;
-                } 
-                // Count Ongoing / Active
-                else if (statusLower.includes('ongoing') || statusLower.includes('active') || statusLower.includes('progress')) {
-                    ongoingCount++;
-                }
+                if (statusLower.includes('pending')) pendingCount++;
+                else if (statusLower.includes('ongoing') || statusLower.includes('active') || statusLower.includes('progress')) ongoingCount++;
 
-                // Average Time to Fill (TTF)
                 if (item.TTF > 0) {
                     totalTtf += item.TTF;
                     ttfRecords++;
@@ -367,7 +464,6 @@
 
             let avgTtf = ttfRecords > 0 ? Math.round(totalTtf / ttfRecords) : 0;
 
-            // Update UI
             document.getElementById('kpi-pending').innerText = pendingCount;
             document.getElementById('kpi-ongoing').innerText = ongoingCount;
             document.getElementById('kpi-ttf').innerHTML = `${avgTtf}<span>days</span>`;
@@ -380,7 +476,7 @@
             const fHrbp = document.getElementById('flt-hrbp').value;
             const fStat = document.getElementById('flt-status').value;
 
-            const filtered = allData.filter(item => {
+            const filtered = allReqData.filter(item => {
                 return (fComp === 'All' || item.Company === fComp) &&
                        (fDept === 'All' || item.Department === fDept) &&
                        (fSec === 'All' || item.Section === fSec) &&
@@ -436,8 +532,14 @@
             initSpotlight(); 
         }
 
-        // Init Fetch
-        fetchSheetData();
+        // =====================================================================
+        // --- INITIALIZATION ---
+        // =====================================================================
+        window.onload = () => {
+            initTrendCharts();
+            fetchTrendData();
+            fetchRequisitionsData();
+        };
 
     </script>
 </body>
