@@ -101,17 +101,11 @@
         .main-content { flex: 1; padding: 24px 36px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
         .main-content::-webkit-scrollbar { display: none; }
 
-        /* 6-Column KPI Grid - Horizontal Layout */
+        /* 6-Column KPI Grid */
         .kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
-        .kpi-card { 
-            background: white; border: 1px solid var(--border); border-radius: 12px; 
-            padding: 14px 16px; box-shadow: var(--shadow-sm); transition: 0.3s; 
-            display: flex; align-items: center; justify-content: space-between; /* New layout */
-        }
+        .kpi-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow-sm); transition: 0.3s; }
         .kpi-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); border-color: rgba(37,99,235,0.2); }
-        
-        .kpi-left { display: flex; align-items: center; gap: 10px; } /* Group Icon and Title */
-        .kpi-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+        .kpi-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; margin-bottom: 8px; }
         
         /* KPI Colors */
         .i-hired { background: rgba(16,185,129,0.1); color: #10B981; }
@@ -121,9 +115,9 @@
         .i-vacant { background: rgba(139,92,246,0.1); color: #8B5CF6; }
         .i-ttf { background: rgba(16,185,129,0.1); color: #10B981; }
 
-        .kpi-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
-        .kpi-value { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; justify-content: flex-end; }
-        .kpi-value span { font-size: 10px; font-weight: 600; color: var(--muted-2); margin-left: 2px; }
+        .kpi-title { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; white-space: nowrap; }
+        .kpi-value { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; gap: 3px; }
+        .kpi-value span { font-size: 10px; font-weight: 600; color: var(--muted-2); }
 
         /* Main Cards */
         .section-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
@@ -227,53 +221,41 @@
 
         <main class="main-content">
             
-            <!-- 6 Column Horizontal KPIs -->
+            <!-- 6 Column KPIs -->
             <div class="kpi-grid">
                 <div class="interactive-card kpi-card">
-                    <div class="kpi-left">
-                        <div class="kpi-icon i-hired"><i class="fas fa-user-check"></i></div>
-                        <div class="kpi-title">Hired</div>
-                    </div>
+                    <div class="kpi-icon i-hired"><i class="fas fa-user-check"></i></div>
+                    <div class="kpi-title">Hired</div>
                     <div class="kpi-value" id="kpi-hired">0</div>
                 </div>
                 <div class="interactive-card kpi-card">
-                    <div class="kpi-left">
-                        <div class="kpi-icon i-hold"><i class="fas fa-pause-circle"></i></div>
-                        <div class="kpi-title">On Hold</div>
-                    </div>
+                    <div class="kpi-icon i-hold"><i class="fas fa-pause-circle"></i></div>
+                    <div class="kpi-title">On Hold</div>
                     <div class="kpi-value" id="kpi-hold">0</div>
                 </div>
                 <div class="interactive-card kpi-card">
-                    <div class="kpi-left">
-                        <div class="kpi-icon i-pending"><i class="fas fa-hourglass-half"></i></div>
-                        <div class="kpi-title">Pending</div>
-                    </div>
+                    <div class="kpi-icon i-pending"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="kpi-title">Pending</div>
                     <div class="kpi-value" id="kpi-pending">0</div>
                 </div>
                 <div class="interactive-card kpi-card">
-                    <div class="kpi-left">
-                        <div class="kpi-icon i-ongoing"><i class="fas fa-sync fa-spin-pulse"></i></div>
-                        <div class="kpi-title">Ongoing</div>
-                    </div>
+                    <div class="kpi-icon i-ongoing"><i class="fas fa-sync fa-spin-pulse"></i></div>
+                    <div class="kpi-title">Ongoing</div>
                     <div class="kpi-value" id="kpi-ongoing">0</div>
                 </div>
                 <div class="interactive-card kpi-card">
-                    <div class="kpi-left">
-                        <div class="kpi-icon i-vacant"><i class="fas fa-chair"></i></div>
-                        <div class="kpi-title">Vacant</div>
-                    </div>
+                    <div class="kpi-icon i-vacant"><i class="fas fa-chair"></i></div>
+                    <div class="kpi-title">Vacant</div>
                     <div class="kpi-value" id="kpi-vacant">0</div>
                 </div>
                 <div class="interactive-card kpi-card">
-                    <div class="kpi-left">
-                        <div class="kpi-icon i-ttf"><i class="fas fa-calendar-check"></i></div>
-                        <div class="kpi-title">Avg TTF</div>
-                    </div>
-                    <div class="kpi-value" id="kpi-ttf">0<span>d</span></div>
+                    <div class="kpi-icon i-ttf"><i class="fas fa-calendar-check"></i></div>
+                    <div class="kpi-title">Avg TTF</div>
+                    <div class="kpi-value" id="kpi-ttf">0<span>days</span></div>
                 </div>
             </div>
 
-            <!-- Requisitions Database Section (Fixed Height + Click to Expand) -->
+            <!-- Requisitions Database Section -->
             <div class="section-card interactive-card req-section">
                 <!-- Clickable Header -->
                 <div class="req-header" onclick="openReqModal()">
@@ -295,7 +277,7 @@
                 </div>
             </div>
 
-            <!-- Trends Grid (Fixed Height) -->
+            <!-- Trends Grid -->
             <div class="trends-grid">
                 <div class="section-card interactive-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -562,7 +544,7 @@
             document.getElementById('kpi-pending').innerText = pendingCount;
             document.getElementById('kpi-ongoing').innerText = ongoingCount;
             document.getElementById('kpi-vacant').innerText = vacantCount;
-            document.getElementById('kpi-ttf').innerHTML = `${avgTtf}<span>d</span>`;
+            document.getElementById('kpi-ttf').innerHTML = `${avgTtf}<span>days</span>`;
         }
 
         function applyFilters() {
