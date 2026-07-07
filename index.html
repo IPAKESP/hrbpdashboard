@@ -75,11 +75,6 @@
         }
         .nav-brand { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--ink); letter-spacing: -0.5px; }
         .nav-brand span { color: var(--brand-blue); }
-        
-        .profile-chip { display: flex; align-items: center; gap: 12px; background: white; padding: 6px 16px 6px 6px; border-radius: 100px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); cursor: pointer; transition: 0.3s; }
-        .profile-chip:hover { border-color: rgba(37,99,235,0.3); }
-        .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--brand-gradient); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; color: white; font-size: 16px; }
-        .profile-name { font-size: 14px; font-weight: 600; color: var(--ink-2); }
 
         /* Layout */
         .page-wrapper { padding-top: 70px; display: flex; height: 100vh; overflow: hidden; }
@@ -105,60 +100,59 @@
         .btn-reset:hover { background: var(--brand-blue); box-shadow: var(--shadow-glow); }
 
         /* Main Content */
-        .main-content { flex: 1; padding: 28px 36px; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
+        .main-content { flex: 1; padding: 24px 36px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
         .main-content::-webkit-scrollbar { display: none; }
 
-        .header h1 { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--ink); }
-        .header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
-
-        /* KPI Grid */
-        .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .kpi-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); transition: 0.3s; }
+        /* Smaller KPI Grid */
+        .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .kpi-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; box-shadow: var(--shadow-sm); transition: 0.3s; }
         .kpi-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); border-color: rgba(37,99,235,0.2); }
-        .kpi-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 16px; }
+        .kpi-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; }
         .i-pending { background: rgba(245,158,11,0.1); color: #F59E0B; }
         .i-ongoing { background: rgba(37,99,235,0.1); color: #2563EB; }
         .i-ttf { background: rgba(16,185,129,0.1); color: #10B981; }
-        .kpi-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
-        .kpi-value { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; gap: 4px; }
-        .kpi-value span { font-size: 14px; font-weight: 600; color: var(--muted-2); }
+        .kpi-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .kpi-value { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; gap: 4px; }
+        .kpi-value span { font-size: 12px; font-weight: 600; color: var(--muted-2); }
+
+        /* Main Cards */
+        .section-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow-sm); flex: 1; display: flex; flex-direction: column; min-height: 0; }
+        .section-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 16px; }
 
         /* Trends Grid (Joiners & Leavers) */
-        .trends-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .section-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); flex: 1; display: flex; flex-direction: column; }
-        .section-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 20px; }
+        .trends-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
         /* Sheet Data List */
-        .cand-list { display: flex; flex-direction: column; gap: 12px; overflow-y: auto;}
-        .cand-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); }
+        .cand-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto;}
+        .cand-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); }
         .cand-card::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: transparent; transition: 0.3s; }
         .cand-card:hover { border-color: rgba(37,99,235,0.2); box-shadow: var(--shadow-card); transform: translateX(2px); }
         .cand-card:hover::after { background: var(--brand-gradient); }
 
         .data-info { flex: 1; }
-        .data-role { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
-        .data-meta { font-size: 13px; color: var(--muted); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-        .meta-item { display: flex; align-items: center; gap: 5px; }
+        .data-role { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+        .data-meta { font-size: 12px; color: var(--muted); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .meta-item { display: flex; align-items: center; gap: 4px; }
         
-        .status-badge { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .status-badge { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
         .status-badge.Ongoing { background: rgba(37,99,235,0.1); color: #2563EB; border: 1px solid rgba(37,99,235,0.2); }
         .status-badge.Pending { background: rgba(245,158,11,0.1); color: #F59E0B; border: 1px solid rgba(245,158,11,0.2); }
         .status-badge.Closed { background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.2); }
         .status-badge.default { background: #F1F5F9; color: var(--ink-2); border: 1px solid var(--border); }
 
-        .loading-state { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
-        .loading-state i { font-size: 24px; margin-bottom: 10px; color: var(--brand-blue); }
+        .loading-state { text-align: center; padding: 30px; color: var(--muted); font-size: 13px; }
+        .loading-state i { font-size: 20px; margin-bottom: 8px; color: var(--brand-blue); }
 
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="nav-brand">IPAK<span>.HRBP</span></div>
-        <div class="profile-chip">
-            <div class="avatar">A</div>
-            <span class="profile-name">Anser Ali Shah</span>
+        <div class="nav-brand" style="display: flex; align-items: center; gap: 10px;">
+            <img src="logo.png" alt="Logo" style="height: 32px; width: auto; object-fit: contain;" onerror="this.style.display='none'">
+            <div>IPAK<span>.HRBP</span></div>
         </div>
+        <!-- Profile Chip Removed -->
     </nav>
 
     <div class="page-wrapper">
@@ -192,11 +186,9 @@
 
         <main class="main-content">
             
-            <header class="header">
-                <p>Welcome back, Manager of Planning</p>
-                <h1>Planning & Dispatch Overview</h1>
-            </header>
+            <!-- Header Text Removed -->
 
+            <!-- Smaller KPIs -->
             <div class="kpi-grid">
                 <div class="interactive-card kpi-card">
                     <div class="kpi-icon i-pending"><i class="fas fa-hourglass-half"></i></div>
@@ -215,29 +207,11 @@
                 </div>
             </div>
 
-            <div class="trends-grid">
-                <div class="section-card interactive-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <div class="section-title" style="margin: 0;"><span style="color: var(--brand-green); margin-right: 8px;">●</span>Joiners Trend</div>
-                    </div>
-                    <div style="height: 200px; width: 100%;">
-                        <canvas id="chartJoiners"></canvas>
-                    </div>
-                </div>
-                <div class="section-card interactive-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <div class="section-title" style="margin: 0;"><span style="color: var(--brand-blue); margin-right: 8px;">●</span>Leavers Trend</div>
-                    </div>
-                    <div style="height: 200px; width: 100%;">
-                        <canvas id="chartLeavers"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-card interactive-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <!-- Requisitions Database Section (Moved Up) -->
+            <div class="section-card interactive-card" style="flex: 2;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                     <div class="section-title" style="margin: 0;">Requisitions Database</div>
-                    <span id="record-count" style="font-size: 13px; font-weight: 600; color: var(--muted); background: var(--bg); padding: 4px 10px; border-radius: 8px;">Fetching...</span>
+                    <span id="record-count" style="font-size: 12px; font-weight: 600; color: var(--muted); background: var(--bg); padding: 4px 10px; border-radius: 8px;">Fetching...</span>
                 </div>
                 
                 <div id="loading-spinner" class="loading-state">
@@ -246,7 +220,28 @@
                 </div>
 
                 <div class="cand-list" id="sheet-data-list">
+                    <!-- Data will be populated here via JS -->
+                </div>
+            </div>
+
+            <!-- Trends Grid (Moved Down & Height Reduced) -->
+            <div class="trends-grid">
+                <div class="section-card interactive-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <div class="section-title" style="margin: 0;"><span style="color: var(--brand-green); margin-right: 8px;">●</span>Joiners Trend</div>
                     </div>
+                    <div style="height: 150px; width: 100%;">
+                        <canvas id="chartJoiners"></canvas>
+                    </div>
+                </div>
+                <div class="section-card interactive-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <div class="section-title" style="margin: 0;"><span style="color: var(--brand-blue); margin-right: 8px;">●</span>Leavers Trend</div>
+                    </div>
+                    <div style="height: 150px; width: 100%;">
+                        <canvas id="chartLeavers"></canvas>
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -368,7 +363,6 @@
                 console.error("Error fetching trends sheet:", error);
             }
         }
-
 
         // =====================================================================
         // --- SECTION B: REQUISITIONS DATA (HRBP Sheet) ---
