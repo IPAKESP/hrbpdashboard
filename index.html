@@ -101,22 +101,28 @@
         .main-content { flex: 1; padding: 24px 36px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
         .main-content::-webkit-scrollbar { display: none; }
 
-        /* KPI Grid */
-        .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-        .kpi-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow-sm); transition: 0.3s; }
+        /* 6-Column KPI Grid */
+        .kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+        .kpi-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow-sm); transition: 0.3s; }
         .kpi-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); border-color: rgba(37,99,235,0.2); }
-        .kpi-icon { width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; margin-bottom: 6px; }
+        .kpi-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; margin-bottom: 8px; }
+        
+        /* KPI Colors */
+        .i-hired { background: rgba(16,185,129,0.1); color: #10B981; }
+        .i-hold { background: rgba(100,116,139,0.1); color: #64748B; }
         .i-pending { background: rgba(245,158,11,0.1); color: #F59E0B; }
         .i-ongoing { background: rgba(37,99,235,0.1); color: #2563EB; }
+        .i-vacant { background: rgba(139,92,246,0.1); color: #8B5CF6; }
         .i-ttf { background: rgba(16,185,129,0.1); color: #10B981; }
-        .kpi-title { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
-        .kpi-value { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; gap: 4px; }
-        .kpi-value span { font-size: 11px; font-weight: 600; color: var(--muted-2); }
+
+        .kpi-title { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; white-space: nowrap; }
+        .kpi-value { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--ink); display: flex; align-items: baseline; gap: 3px; }
+        .kpi-value span { font-size: 10px; font-weight: 600; color: var(--muted-2); }
 
         /* Main Cards */
         .section-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
         
-        /* Requisitions Specific Section (Fixed Standard Size) */
+        /* Requisitions Specific Section */
         .req-section { height: 350px; flex-shrink: 0; }
         .req-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.2s; }
         .req-header:hover { opacity: 0.7; }
@@ -141,9 +147,11 @@
         .meta-item { display: flex; align-items: center; gap: 4px; }
         
         .status-badge { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .status-badge.Hired { background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.2); }
         .status-badge.Ongoing { background: rgba(37,99,235,0.1); color: #2563EB; border: 1px solid rgba(37,99,235,0.2); }
         .status-badge.Pending { background: rgba(245,158,11,0.1); color: #F59E0B; border: 1px solid rgba(245,158,11,0.2); }
-        .status-badge.Closed { background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.2); }
+        .status-badge.Hold { background: rgba(100,116,139,0.1); color: #64748B; border: 1px solid rgba(100,116,139,0.2); }
+        .status-badge.Vacant { background: rgba(139,92,246,0.1); color: #8B5CF6; border: 1px solid rgba(139,92,246,0.2); }
         .status-badge.default { background: #F1F5F9; color: var(--ink-2); border: 1px solid var(--border); }
 
         .loading-state { text-align: center; padding: 30px; color: var(--muted); font-size: 13px; width: 100%; }
@@ -213,26 +221,41 @@
 
         <main class="main-content">
             
-            <!-- Smaller KPIs -->
+            <!-- 6 Column KPIs -->
             <div class="kpi-grid">
                 <div class="interactive-card kpi-card">
+                    <div class="kpi-icon i-hired"><i class="fas fa-user-check"></i></div>
+                    <div class="kpi-title">Hired</div>
+                    <div class="kpi-value" id="kpi-hired">0</div>
+                </div>
+                <div class="interactive-card kpi-card">
+                    <div class="kpi-icon i-hold"><i class="fas fa-pause-circle"></i></div>
+                    <div class="kpi-title">On Hold</div>
+                    <div class="kpi-value" id="kpi-hold">0</div>
+                </div>
+                <div class="interactive-card kpi-card">
                     <div class="kpi-icon i-pending"><i class="fas fa-hourglass-half"></i></div>
-                    <div class="kpi-title">Pending Roles</div>
+                    <div class="kpi-title">Pending</div>
                     <div class="kpi-value" id="kpi-pending">0</div>
                 </div>
                 <div class="interactive-card kpi-card">
                     <div class="kpi-icon i-ongoing"><i class="fas fa-sync fa-spin-pulse"></i></div>
-                    <div class="kpi-title">Ongoing Hiring</div>
+                    <div class="kpi-title">Ongoing</div>
                     <div class="kpi-value" id="kpi-ongoing">0</div>
                 </div>
                 <div class="interactive-card kpi-card">
+                    <div class="kpi-icon i-vacant"><i class="fas fa-chair"></i></div>
+                    <div class="kpi-title">Vacant</div>
+                    <div class="kpi-value" id="kpi-vacant">0</div>
+                </div>
+                <div class="interactive-card kpi-card">
                     <div class="kpi-icon i-ttf"><i class="fas fa-calendar-check"></i></div>
-                    <div class="kpi-title">Avg Time to Fill</div>
+                    <div class="kpi-title">Avg TTF</div>
                     <div class="kpi-value" id="kpi-ttf">0<span>days</span></div>
                 </div>
             </div>
 
-            <!-- Requisitions Database Section (Fixed Height + Click to Expand) -->
+            <!-- Requisitions Database Section -->
             <div class="section-card interactive-card req-section">
                 <!-- Clickable Header -->
                 <div class="req-header" onclick="openReqModal()">
@@ -254,7 +277,7 @@
                 </div>
             </div>
 
-            <!-- Trends Grid (Fixed Height) -->
+            <!-- Trends Grid -->
             <div class="trends-grid">
                 <div class="section-card interactive-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -484,15 +507,29 @@
         }
 
         function updateKPIs(data) {
+            let hiredCount = 0;
+            let holdCount = 0;
             let pendingCount = 0;
             let ongoingCount = 0;
+            let vacantCount = 0;
+            
             let totalTtf = 0;
             let ttfRecords = 0;
 
             data.forEach(item => {
                 let statusLower = item.Status.toLowerCase();
-                if (statusLower.includes('pending')) pendingCount++;
-                else if (statusLower.includes('ongoing') || statusLower.includes('active') || statusLower.includes('progress')) ongoingCount++;
+                
+                if (statusLower.includes('hired') || statusLower.includes('closed') || statusLower.includes('filled')) {
+                    hiredCount++;
+                } else if (statusLower.includes('hold')) {
+                    holdCount++;
+                } else if (statusLower.includes('pending')) {
+                    pendingCount++;
+                } else if (statusLower.includes('ongoing') || statusLower.includes('active') || statusLower.includes('progress')) {
+                    ongoingCount++;
+                } else if (statusLower.includes('vacant') || statusLower.includes('open')) {
+                    vacantCount++;
+                }
 
                 if (item.TTF > 0) {
                     totalTtf += item.TTF;
@@ -502,8 +539,11 @@
 
             let avgTtf = ttfRecords > 0 ? Math.round(totalTtf / ttfRecords) : 0;
 
+            document.getElementById('kpi-hired').innerText = hiredCount;
+            document.getElementById('kpi-hold').innerText = holdCount;
             document.getElementById('kpi-pending').innerText = pendingCount;
             document.getElementById('kpi-ongoing').innerText = ongoingCount;
+            document.getElementById('kpi-vacant').innerText = vacantCount;
             document.getElementById('kpi-ttf').innerHTML = `${avgTtf}<span>days</span>`;
         }
 
@@ -553,10 +593,14 @@
             let htmlString = "";
 
             data.forEach(item => {
+                let statusLower = item.Status.toLowerCase();
                 let statusClass = "default";
-                if (item.Status.toLowerCase().includes("ongoing") || item.Status.toLowerCase().includes("active")) statusClass = "Ongoing";
-                if (item.Status.toLowerCase().includes("pending")) statusClass = "Pending";
-                if (item.Status.toLowerCase().includes("closed") || item.Status.toLowerCase().includes("filled")) statusClass = "Closed";
+                
+                if (statusLower.includes("hired") || statusLower.includes("closed") || statusLower.includes("filled")) statusClass = "Hired";
+                else if (statusLower.includes("hold")) statusClass = "Hold";
+                else if (statusLower.includes("pending")) statusClass = "Pending";
+                else if (statusLower.includes("ongoing") || statusLower.includes("active") || statusLower.includes("progress")) statusClass = "Ongoing";
+                else if (statusLower.includes("vacant") || statusLower.includes("open")) statusClass = "Vacant";
 
                 htmlString += `
                     <div class="cand-card interactive-card">
